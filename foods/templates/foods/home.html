@@ -1,8 +1,47 @@
-{% block content %}
-<h1>Home</h1>
+{% extends 'foods/base.html' %}
+{% load staticfiles %}
 
-<h1>Food List</h1>
-<!-- {% for food in foods.all %}
-{{ foods.title }} - {{ foods.price }}
-{% endfor %} -->
+{% block content %}
+<main role="main">
+
+  <section class="text-center">
+    <div class="container">
+      <h1 class="heading"></h1>
+      <img src="{% static 'SoFastLogo1.png' %}" height="200"/>
+      <p class="lead text-muted">Check out the foods available below!</p>
+      <br>
+      {% if user.is_authenticated %}
+      <a type="button" class="btn btn-primary" href="/food/new">Add Food</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <div class="album py-5">
+    <div class="container">
+  <h4 class="heading"><img src="{% static 'menu.png' %}"/> <b>Food List:</b></h4>
+      <div class="row">
+
+
+{% for food in foods %}
+
+        <div class="col-md-4">
+            <div class="card border-dark mb-3" style="max-width: 18rem;"><img src="{{ food.image.url }}">
+            <div class="card-body">
+              <p class="card-text"><b>{{ food.title }} - ₱{{ food.price }}</b></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">{{ food.created }}</small>
+                <div class="btn-group">
+                  {% if user.is_authenticated %}
+                  <a type="button" class="btn btn-primary" href="{% url 'food_edit' pk=food.pk %}">Edit</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+{% endfor %}
+
+
+</main>
 {% endblock %}

@@ -7,7 +7,7 @@ class Food(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='images/')
     price = models.IntegerField(blank=False)
-    posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     modified = models.DateTimeField(auto_now=True)
 
